@@ -88,7 +88,15 @@ public class LazyBinarySearchTree
 		    }
 		    else // Duplicate
 		    {
-		     	return false;
+		    	if(node.deleted)
+		    	{
+		    		node.deleted = true;
+		    		return true;
+		    	}
+		    	else
+		    	{
+		    		return false;
+		    	}
 		    }
 		}
 	}
