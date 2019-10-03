@@ -26,8 +26,8 @@ public class LazyBinarySearchTree
 	
 	 /**
      * Internal method to insert into a subtree.
-     * @param x the item to insert.
-     * @param t the node that roots the subtree.
+     * @param key the item to insert.
+     * @param node the node that roots the subtree.
      * @return the new root of the subtree.
      */
     private Boolean insert( int key, TreeNode node )
@@ -103,7 +103,38 @@ public class LazyBinarySearchTree
 
 	public boolean delete(int key) throws IllegalArgumentException
 	{
-		return false;
+		if(key < 1 || key > 99)
+		{
+			throw new IllegalArgumentException("Arguments out of bounds!");
+		}
+		
+		return delete(key, root);
+	}
+	
+	private boolean delete(int key, TreeNode node)
+	{
+		if(node == null)
+		{
+			return false;
+		}
+		
+		if(key < node.key)
+		{
+			return delete(key, node.leftChild);
+		}
+		else if(key > node.key)
+		{
+			return delete(key, node.rightChild);
+		}
+		else if(!node.deleted)
+		{
+			node.deleted = true;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	public int findMin()
@@ -118,7 +149,37 @@ public class LazyBinarySearchTree
 	
 	public boolean contains(int key) throws IllegalArgumentException
 	{
-		return false;
+		if(key < 1 || key > 99)
+		{
+			throw new IllegalArgumentException("Arguments out of bounds!");
+		}
+		
+		return contains(key, root);
+	}
+	
+	private boolean contains(int key, TreeNode node)
+	{
+		if(node == null)
+		{
+			return false;
+		}
+		
+		if(key < node.key)
+		{
+			return contains(key, node.leftChild);
+		}
+		else if(key > node.key)
+		{
+			return contains(key, node.rightChild);
+		}
+		else if(!node.deleted)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	public String toString()
