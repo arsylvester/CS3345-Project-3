@@ -34,13 +34,8 @@ public class P3Driver
 
 			while (in.hasNext()) 
 			{
-
+				
 				operation = in.next();
-				if (operation.charAt(0) == '#') 
-				{
-					in.nextLine();
-					continue;
-				}
 				
 				switch (operation) 
 				{	
@@ -52,6 +47,7 @@ public class P3Driver
 					catch (Exception e) 
 					{
 						out.println("Error in insert: IllegalArgumentException raised");
+						in.nextLine();
 					}
 					break;
 				case "Delete":
@@ -129,6 +125,7 @@ public class P3Driver
 					out.println("Error in Line: " + operation);
 					//in.nextLine();
 				}
+				in.nextLine();
 			}
 			in.close();
 			out.close();
