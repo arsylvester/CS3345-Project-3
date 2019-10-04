@@ -42,12 +42,16 @@ public class P3Driver
 				case "Insert":
 					try 
 					{
+						if(in.findInLine(":") == null)
+						{
+							out.println("Error in Line: " + operation);
+							break;
+						}	
 						out.println(lbst.insert(in.nextInt()) ? "True" :"False");
 					} 
 					catch (Exception e) 
 					{
 						out.println("Error in insert: IllegalArgumentException raised");
-						in.nextLine();
 					}
 					break;
 				case "Delete":
@@ -125,7 +129,8 @@ public class P3Driver
 					out.println("Error in Line: " + operation);
 					//in.nextLine();
 				}
-				in.nextLine();
+				if(in.hasNext())
+					in.nextLine();
 			}
 			in.close();
 			out.close();

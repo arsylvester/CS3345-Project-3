@@ -9,14 +9,13 @@ Contains:45
 FindMin
 FindMax
 PrintTree
-Height:123
+Height
 Size
 Insert:84
 Insert:32
 Insert:132
 PrintTree
 Insert:980
-Insert
+Insert:
+21
 hih
-Insert:a3f
-PrintTree
