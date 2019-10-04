@@ -16,6 +16,5 @@ Insert:32
 Insert:132
 PrintTree
 Insert:980
-Insert:
-21
+Insert
 hih
