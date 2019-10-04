@@ -17,6 +17,7 @@ public class P3Driver
 		System.out.println(lbst.contains(13));
 		System.out.println(lbst.delete(13));
 		System.out.println(lbst.contains(13));
+		System.out.println(lbst.toString());
 		}
 		catch(IllegalArgumentException ex)
 		{

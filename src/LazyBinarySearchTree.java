@@ -2,6 +2,7 @@
 public class LazyBinarySearchTree 
 {
 	private TreeNode root;
+	private int treeSize;
 	
 	private static class TreeNode
 	{
@@ -22,29 +23,8 @@ public class LazyBinarySearchTree
 	public LazyBinarySearchTree() 
 	{
 		root = null;
+		treeSize = 0;
 	}
-	
-	 /**
-     * Internal method to insert into a subtree.
-     * @param key the item to insert.
-     * @param node the node that roots the subtree.
-     * @return the new root of the subtree.
-     */
-    private Boolean insert( int key, TreeNode node )
-    {
-        if( node == null )
-        {
-             node = new TreeNode(key);
-             return true;
-        }
-            
-        if( node.key < key )
-            return insert( key, node.leftChild );
-        else if( node.key > key )
-            return insert( key, node.rightChild );
-        else // Duplicate
-        	return false;
-    }
 	
 	public boolean insert(int key) throws IllegalArgumentException
 	{
@@ -67,6 +47,7 @@ public class LazyBinarySearchTree
 				if(node.leftChild == null)
 				{
 					node.leftChild = new TreeNode(key);
+					treeSize++;
 					return true;
 				}
 				else
@@ -79,6 +60,7 @@ public class LazyBinarySearchTree
 		    	if(node.rightChild == null)
 				{
 					node.rightChild = new TreeNode(key);
+					treeSize++;
 					return true;
 				}
 		    	else
@@ -139,7 +121,46 @@ public class LazyBinarySearchTree
 	
 	public int findMin()
 	{
-		return -1;
+		return findMin(root, null);
+	}	
+	
+	private int findMin(TreeNode node, TreeNode parent)
+	{
+		 if( node == null )
+			 return -1;
+	     else if( node.leftChild == null )
+	     {
+	    	 if(node.deleted)
+	    	 {
+	    		 if(node.rightChild != null)
+	    		 {
+	    			 return findMin(node.rightChild, node);
+	    		 }
+	    		 else
+	    		 {
+	    			 if(parent.deleted)
+	    			 {
+	    				 if(parent.rightChild == null)
+	    				 {
+	    					 return 1;
+	    				 }
+	    				 else
+	    				 {
+	    					 return findMin(parent.rightChild, parent);
+	    				 }
+	    			 }
+	    			 else
+	    			 {
+	    				 return parent.key;
+	    			 }
+	    		 }
+	    	 }
+	    	 else
+	    	 {
+	    		 return node.key;
+	    	 }
+	     }
+	     return findMin( node.leftChild, node);
 	}
 	
 	public int findMax()
@@ -184,16 +205,41 @@ public class LazyBinarySearchTree
 	
 	public String toString()
 	{
-		return "";
+		return toString(root, "");
+	}
+	
+	private String toString(TreeNode node, String output)
+	{
+		if(node != null)
+		{
+			output = output + node.key + " " + toString(node.leftChild, output) + toString(node.rightChild, output);
+			return output;
+		}
+		else
+		{
+			return "";
+		}
 	}
 	
 	public int height()
 	{
-		return -1;
+		return height(root);
+	}
+	
+	private int height(TreeNode node)
+	{
+		if(node == null)
+		{
+			return -1;
+		}
+		else
+		{
+			return 1 + Math.max(height(node.leftChild), height(node.rightChild));
+		}
 	}
 	
 	public int size()
 	{
-		return -1;
+		return treeSize;
 	}
 }
